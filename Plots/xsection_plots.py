@@ -32,7 +32,7 @@ def xsect_vs_sqrts(  x,  par ):
     
 import numpy as np
 import matplotlib.pyplot as plt
-
+from atlasify import atlasify
     
 X = np.linspace(1.0, 14.0, num=1000)
 sigma_sqrts = []
@@ -42,17 +42,19 @@ for i in X:
 	if i >0:
 		#energy = 13/i
 		sigma_s = xsect_vs_sqrts(  [i],  [-18.8,0.0039,4.95e-6,-0.004820,0.00193168,1.68e-6,-1.799e-6] )
-		if sigma_s>0:
-			print(i , sigma_s)
+		if sigma_s < 0:
+            		break
 
-			#plt.plot(i, sigma_s, 'o')
+		energy=np.concatenate((energy,[i]))
+		sigma_py=np.concatenate((sigma_py,[sigma_s]))
+            #print(i , sigma_s)
+            
 
-#plt.yscale('log')
-#plt.show()
+plt.plot(energy, sigma_py, 'o')
+plt.yscale('log')
+plt.show()
 
 
 #to run the code use python xsection_plots.py > outfile.dat
-
-
 
 
